@@ -9,10 +9,10 @@ function Header() {
     >
 <Image 
     // style={{filter: "drop-shadow(0px 0px 20px #ffffff9d)"}}
-    src="/austelix_transparent.png"
+    src="/austelix-transparent.png"
     width={100}
       height={100}
-      alt="Picture of the author"
+      alt="austelix"
     />
     <nav 
     className='font-bold font-dm-sans text-center gap-4 md:flex hidden'
