@@ -9,13 +9,13 @@ export default function Home() {
 <Header/>
 
 <div 
-className="flex items-center h-[calc(100vh-100px)] px-16"
+className="flex items-center justify-center md:justify-start h-[calc(100vh-100px)] md:px-16"
 // style={{
 //   height:"calc(100vh-100px)"
 // }}
 >
 <span 
-className="text-8xl font-bold font-Mon"
+className="md:text-8xl sm:text-7xl text-5xl text-center md:text-left font-bold font-Mon"
 >
   Coming 
   <br/>

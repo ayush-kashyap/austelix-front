@@ -41,5 +41,13 @@ background-color: var(--secondary-color);
 }
 .bg-main{
   background :url('/bg-austelix.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 
+}
+@media only screen and (max-width: 768px) {
+  .bg-main {
+    background-image: url('/bg-mobile.png');
+  }
 }

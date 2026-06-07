@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react'
 function Header() {
   return (
     <header 
-    className='flex justify-between items-center px-8 bg-glass-gradient'
+    className='flex justify-between items-center md:px-8 px-4 bg-glass-gradient'
     >
 <Image 
     // style={{filter: "drop-shadow(0px 0px 20px #ffffff9d)"}}
@@ -15,7 +15,7 @@ function Header() {
       alt="Picture of the author"
     />
     <nav 
-    className='font-bold font-dm-sans text-center gap-4 flex'
+    className='font-bold font-dm-sans text-center gap-4 md:flex hidden'
     >
         <a href='#'>Home</a>
         <a href='#'>Services</a>
@@ -28,11 +28,11 @@ function Header() {
     <a
     href='https://ayushk.in'
     target='_blank'
-    className='flex justify-between items-center gap-4 bg-white px-4 py-2 rounded-full font-semibold'
+    className='flex justify-between items-center gap-4 bg-white md:px-4 md:py-2 py-1 px-2 rounded-full font-semibold'
     >
        <span className='text-black'> Get In Touch </span>
     <div
-    className='bg-secondary p-2 rounded-full'
+    className='bg-secondary md:p-2 p-1 rounded-full'
     ><ArrowRight/></div>
     </a>
     </header>
