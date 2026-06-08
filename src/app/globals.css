@@ -30,6 +30,40 @@ background-color: var(--secondary-color);
 .bg-white-100{
   background-color: rgba(255, 255, 255, 0.2);
 }
+
+@property --gradient-percent {
+  syntax: '<percentage>';
+  initial-value: 25%;
+  inherits: false;
+}
+
+@property --gradient-gray {
+  syntax: '<color>';
+  initial-value: rgb(40, 40, 40);
+  inherits: false;
+}
+
+.bg-gradient-border {
+  --gradient-percent: 25%;
+  --gradient-gray: rgb(30, 30, 30);
+  background: linear-gradient(
+
+  35deg,
+    rgba(199, 10, 14, 1) 0%,
+    var(--gradient-gray) var(--gradient-percent)
+  );
+  transition: --gradient-percent 300ms linear, all 300ms linear, ;
+}
+
+.bg-gradient-border:hover {
+  --gradient-percent: 99%;
+  transform: scale(1.02);
+  box-shadow: 0 0 25px rgba(199, 10, 14, 0.3);
+}
+
+.red-shadow{
+  box-shadow: 0 0 15px rgba(199, 10, 14, 1) ;
+}
 .bg-glass-gradient{
   background: linear-gradient(
     135deg,
@@ -46,6 +80,32 @@ background-color: var(--secondary-color);
   background-repeat: no-repeat;
 
 }
+.sliding-animation > div{
+  transition: all 300ms linear;
+}
+
+.sliding-animation:hover  div{
+  color: var(--secondary-color) ;
+  background: white;
+  
+
+  transform: translateX(0.5rem);
+  /* animation: sliding 3s linear infinite; */
+}
+
+
+/* @keyframes sliding{
+  0%{
+    transform: translateX(-1rem);
+  }
+  50%{
+    transform: translateX(0rem);
+    
+  }
+  100%{
+    transform: translateX(-1rem);
+  }
+} */
 @media only screen and (max-width: 768px) {
   .bg-main {
     background-image: url('/bg-mobile.png');

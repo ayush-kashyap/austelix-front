@@ -28,11 +28,11 @@ function Header() {
     <a
     href='https://ayushk.in'
     target='_blank'
-    className='flex justify-between items-center gap-4 bg-white md:px-4 md:py-2 py-1 px-2 rounded-full font-semibold'
+    className='flex justify-between items-center gap-4 bg-white  md:px-4 md:py-2  py-1 px-2 rounded-full font-semibold'
     >
        <span className='text-black'> Get In Touch </span>
     <div
-    className='bg-secondary md:p-2 p-1 rounded-full'
+    className='bg-secondary  p-1 rounded-full'
     ><ArrowRight/></div>
     </a>
     </header>
