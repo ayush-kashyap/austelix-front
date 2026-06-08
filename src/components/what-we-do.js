@@ -6,23 +6,23 @@ function WhatWeDo() {
         <div
             className=' gap-8 bg-black px-32 py-16 flex flex-col justify-start'
         >
-            <span className='text-center text-secondary font-semibold text-xl '>
+            <span className='text-center text-secondary font-bold text-xl '>
                 WHAT WE OFFER
             </span>
 
-<span className='flex justify-between'>
-<span className='text-4xl font-bold flex-2'>
-                Powerful Solutions for <br/>
-                Modern <span className='text-secondary'>Businesses</span>
-            </span>
+            <span className='flex justify-between'>
+                <span className='text-4xl font-bold flex-2'>
+                    Powerful Solutions for <br />
+                    Modern <span className='text-secondary'>Businesses</span>
+                </span>
 
-            {/* <span className='flex-1 text-sm'>
+                {/* <span className='flex-1 text-sm'>
 
                 We combine creativity, technology and strategy to build websites that not only look amazing but also deliver <span className='font-semibold'>measurable growth</span>.
             </span> */}
 
-</span>
-            
+            </span>
+
 
 
             <div
