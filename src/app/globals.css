@@ -101,8 +101,23 @@ background-color: var(--secondary-color);
 .decoration-secondary{
   text-decoration-color: var(--secondary-color);
 }
+.number-bg {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.1) 0%,
+    rgba(255,255,255,0.02) 100%
+  );
 
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
+.border-secondary{
+  border-color: var(--secondary-color);
+}
+.backdrop-shadow-white{
+  filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
+}
 /* @keyframes sliding{
   0%{
     transform: translateX(-1rem);

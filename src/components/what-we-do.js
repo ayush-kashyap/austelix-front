@@ -1,17 +1,65 @@
 import React from 'react'
-import { Sparkles, Gauge, CodeXml, TrendingUp, Headset, Smartphone } from 'lucide-react'
+import { Sparkles, Rocket,Palette,ShoppingCart,Fingerprint, CodeXml, TrendingUp, Headset, Smartphone } from 'lucide-react'
 
 function WhatWeDo() {
+    
+       const services = [
+        {
+          icon: Sparkles,
+          title: "AI Solutions",
+          description: "Smart automation powered by cutting-edge AI.",
+        },
+        {
+          icon: CodeXml,
+          title: "Web Development",
+          description: "Fast, scalable websites built for growth.",
+        },
+        {
+          icon: TrendingUp,
+          title: "Digital Marketing & SEO",
+          description: "Drive traffic, rankings, and conversions.",
+        },
+        {
+          icon: Smartphone,
+          title: "App Development",
+          description: "Custom mobile apps for every platform.",
+        },
+        {
+          icon: Rocket,
+          title: "Performance Optimization",
+          description: "Boost speed, reliability, and user experience.",
+        },
+        {
+          icon: Headset,
+          title: "Support & Maintenance",
+          description: "Keeping your digital products running smoothly.",
+        },
+        {
+          icon: Palette,
+          title: "UI/UX Design",
+          description: "Crafting intuitive and engaging user experiences.",
+        },
+        {
+          icon: ShoppingCart,
+          title: "E-Commerce Solutions",
+          description: "Online stores designed to maximize sales and growth.",
+        },
+        {
+          icon: Fingerprint,
+          title: "Brand Identity",
+          description: "Creating memorable brands that stand out.",
+        },
+    ];
     return (
         <div
-            className=' gap-8 bg-black px-32 py-16 flex flex-col justify-start'
+            className=' gap-8 bg-black md:px-32 px-6 md:py-16 py-8 flex flex-col justify-start'
         >
-            <span className='text-center text-secondary font-bold text-xl '>
+            <span className=' text-secondary font-bold md:text-xl '>
                 WHAT WE OFFER
             </span>
 
             <span className='flex justify-between'>
-                <span className='text-4xl font-bold flex-2'>
+                <span className='md:text-4xl text-xl font-bold flex-2'>
                     Powerful Solutions for <br />
                     Modern <span className='text-secondary'>Businesses</span>
                 </span>
@@ -26,16 +74,21 @@ function WhatWeDo() {
 
 
             <div
-                className='grid grid-cols-3 gap-4'
+                className='grid md:grid-cols-3 grid-cols-1 gap-4'
             >
 
-                <div
+                {
+                    services.map((service)=>{
+                    const Icon=service.icon;
+                    return <div
+                    key={service.title}
                     className='bg-gradient-border rounded-2xl'
                 >
                     <div
                         className='bg-black m-0.5 h-32 rounded-2xl flex items-center'
                     >
-                        <Sparkles
+                        <
+                            Icon
                             size={60}
                             strokeWidth={1}
                             className='mx-8'
@@ -45,20 +98,22 @@ function WhatWeDo() {
                         >
 
                             <span
-                                className='text-md font-bold '
+                                className='md:text-md text-sm font-bold '
                             >
-                                AI Solutions
+                                {service.title}
                             </span>
 
-                            <span className='text-sm'>
-                                Applications that make your life easy not complicate it.
+                            <span className='md:text-sm text-xs'>
+                                {service.description}
                             </span>
                         </div>
 
                     </div>
 
-                </div>
-                <div
+                    </div>})
+                    
+                }
+                {/* <div
                     className='bg-gradient-border rounded-2xl'
                 >
                     <div
@@ -203,7 +258,7 @@ function WhatWeDo() {
 
                     </div>
 
-                </div>
+                </div> */}
             </div>
 
 

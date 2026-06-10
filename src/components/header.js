@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react' 
+import Link from 'next/link'
 
 function Header() {
   return (
@@ -17,15 +18,15 @@ function Header() {
     <nav 
     className='font-bold font-dm-sans text-center gap-4 md:flex hidden'
     >
-        <a href='#'>Home</a>
-        <a href='#'>Services</a>
-        <a href='#'>About Us</a>
-        <a href='#'>Work</a>
-        <a href='#'>Pricing</a>
-        <a href='#'>Blog</a>
-        <a href='#'>Contact Us</a>
+        <Link href='#'>Home</Link>
+        <Link href='#'>Services</Link>
+        <Link href='/about-us'>About Us</Link>
+        <Link href='#'>Work</Link>
+        <Link href='#'>Pricing</Link>
+        <Link href='#'>Blog</Link>
+        <Link href='#'>Contact Us</Link>
     </nav>
-    <a
+    <Link
     href='https://ayushk.in'
     target='_blank'
     className='flex justify-between items-center gap-4 bg-white  md:px-4 md:py-2  py-1 px-2 rounded-full font-semibold'
@@ -34,7 +35,7 @@ function Header() {
     <div
     className='bg-secondary  p-1 rounded-full'
     ><ArrowRight/></div>
-    </a>
+    </Link>
     </header>
     
   )
