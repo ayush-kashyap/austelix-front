@@ -16,7 +16,7 @@ function Header() {
       alt="austelix"
     />
     <nav 
-    className='font-bold font-dm-sans text-center gap-4 md:flex hidden'
+    className='font-bold font-dm-sans text-center gap-4 lg:flex hidden'
     >
         <Link href='#'>Home</Link>
         <Link href='#'>Services</Link>

@@ -52,7 +52,7 @@ function WhatWeDo() {
     ];
     return (
         <div
-            className=' gap-8 bg-black md:px-32 px-6 md:py-16 py-8 flex flex-col justify-start'
+            className=' gap-8 bg-black xl:px-32 lg:px-24 md:px-32 px-6 md:py-16 py-8 flex flex-col justify-start'
         >
             <span className=' text-secondary font-bold md:text-xl '>
                 WHAT WE OFFER
@@ -74,7 +74,7 @@ function WhatWeDo() {
 
 
             <div
-                className='grid md:grid-cols-3 grid-cols-1 gap-4'
+                className='grid lg:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-4'
             >
 
                 {
