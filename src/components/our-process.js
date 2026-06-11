@@ -15,28 +15,28 @@ function OurProcess() {
             step: "01",
             title: "Discover",
             description:
-                "We understand your goals, audience, and requirements.",
+                "We understand your problems and requirements.",
             icon: Search,
         },
         {
             step: "02",
             title: "Plan",
             description:
-                "We create a strategy and roadmap for your project.",
+                "We create a strategy and roadmap for the solution.",
             icon: PenTool,
         },
         {
             step: "03",
             title: "Design",
             description:
-                "Stunning designs that align with your brand.",
+                "Stunning designs that feels easy to use.",
             icon: Compass,
         },
         {
             step: "04",
             title: "Develop",
             description:
-                "We build fast, responsive, and scalable websites.",
+                "We build sustainable, robust, and powerful products.",
             icon: Code2,
         },
         {
@@ -54,15 +54,15 @@ function OurProcess() {
             </span>
             <span className='flex justify-between'>
                 <span className='md:text-4xl text-xl font-bold '>
-                    Simple Process<br />
+                    Complex Problems<br />
                     <span className='text-secondary '>
-                        Powerful Results.
+                        Powerful Solutions
                     </span>
 
                 </span>
             </span>
-            <span className='text-xs md:text-sm'>We follow a proven process that ensures clarity,
-                quality, and on-time delivery</span>
+            <span className='text-xs md:text-sm'>We follow a user-centric process that ensures clarity,
+                quality, and robust solutions that fill the gap</span>
 
             <div
                 className='flex lg:flex-row flex-col justify-evenly items-start  xl:gap-16 lg:gap-8 gap-4'

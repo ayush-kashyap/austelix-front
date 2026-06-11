@@ -17,7 +17,7 @@ function WelcomeScreen() {
         >
           <Brain strokeWidth={1} size={20} />
           <span className="lg:text-lg md:text-md text-xs">
-            Intelligent Software, &nbsp;
+            Intelligent Core, &nbsp;
 
             <span className="text-secondary">Powerful Brands</span>
           </span>
@@ -31,9 +31,9 @@ function WelcomeScreen() {
             className="text-secondary"
           >Your Business</span>
         </span>
-        <span className="lg:text-xl md:text-lg md:block hidden font-semibold ">
+        {/* <span className="lg:text-xl md:text-lg md:block hidden font-semibold ">
           AI Powered SAAS Solutions <span className="text-secondary">|</span> Custom Softwares <span className="text-secondary">|</span> Digital Marketing
-        </span>
+        </span> */}
         <a
     href='https://ayushk.in'
     target='_blank'

@@ -18,13 +18,13 @@ function Header() {
     <nav 
     className='font-bold font-dm-sans text-center gap-4 lg:flex hidden'
     >
-        <Link href='#'>Home</Link>
-        <Link href='#'>Services</Link>
+        <Link href='/'>Home</Link>
+        <Link href='/services'>Services</Link>
         <Link href='/about-us'>About Us</Link>
-        <Link href='#'>Work</Link>
-        <Link href='#'>Pricing</Link>
-        <Link href='#'>Blog</Link>
-        <Link href='#'>Contact Us</Link>
+        <Link href='/work'>Work</Link>
+        <Link href='/pricing'>Pricing</Link>
+        <Link href='/blogs'>Blog</Link>
+        <Link href='/contact-us'>Contact Us</Link>
     </nav>
     <Link
     href='https://ayushk.in'
