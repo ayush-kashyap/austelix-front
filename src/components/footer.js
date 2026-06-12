@@ -47,8 +47,8 @@ function Footer() {
                         <Link href='/'>Home</Link>
                         {/* <Link href='/services'>Services</Link> */}
                         <Link href='/about-us'>About Us</Link>
-                        <Link href='/work'>Work</Link>
-                        <Link href='/pricing'>Pricing</Link>
+                        {/* <Link href='/work'>Work</Link> */}
+                        {/* <Link href='/pricing'>Pricing</Link> */}
                         <Link href='/blogs'>Blog</Link>
                         <Link href='/contact-us'>Contact Us</Link>
                     </div>
