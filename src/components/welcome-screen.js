@@ -1,13 +1,13 @@
 import React from 'react'
 import Header from './header'
-import { Brain,ArrowRight } from 'lucide-react'
+import { Brain, ArrowRight } from 'lucide-react'
 
 function WelcomeScreen() {
   return (
     <div
       className="bg-main h-screen"
     >
-      <Header active={"home"}/>
+      <Header active={"home"} />
 
       <div
         className="flex flex-col gap-12 items-center md:items-start justify-center h-[calc(100vh-100px)] md:px-16"
@@ -34,19 +34,35 @@ function WelcomeScreen() {
         {/* <span className="lg:text-xl md:text-lg md:block hidden font-semibold ">
           AI Powered SAAS Solutions <span className="text-secondary">|</span> Custom Softwares <span className="text-secondary">|</span> Digital Marketing
         </span> */}
-        <a
-    href='https://ayushk.in'
-    target='_blank'
-    className='bg-secondary sliding-animation  flex justify-between items-center gap-4   md:pl-4 md:pr-6 md:py-2  py-1 px-2 rounded-full font-semibold red-shadow '
-    >
-       <span className='lg:text-lg md:text-md text-xs'> Explore our products </span>
-    <div
-    className='bg-secondary p-1 rounded-full '
-    ><ArrowRight className=""/></div>
-    </a>
+        <div
+        className='flex gap-4 flex-col lg:flex-row'
+        >
+
+          <a
+            href='https://ayushk.in'
+            target='_blank'
+            className='bg-secondary sliding-animation  flex justify-between items-center gap-4   md:pl-4 md:pr-6 md:py-2  py-1 px-2 rounded-full font-semibold red-shadow '
+          >
+            <span className='lg:text-lg md:text-md text-xs'> Explore Products </span>
+            <div
+              className='bg-secondary p-1 rounded-full '
+            ><ArrowRight className="" /></div>
+          </a>
+          <a
+            href='https://ayushk.in'
+            target='_blank'
+            className='border border-(--secondary-color) sliding-animation  flex justify-between items-center gap-4   md:pl-4 md:pr-6 md:py-2  py-1 px-2 rounded-full font-semibold '
+          >
+            <span className='lg:text-lg md:text-md text-xs'> About Us </span>
+            <div
+              className='bg-secondary p-1 rounded-full '
+            ><ArrowRight className="" /></div>
+          </a>
+        </div>
+
       </div>
 
-{/* Uncomment this when we have clients to show also change the height of above container repectively */}
+      {/* Uncomment this when we have clients to show also change the height of above container repectively */}
 
       {/* <div 
       className="h-[calc(20vh)] gap-4 flex flex-col items-center justify-center"
