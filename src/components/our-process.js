@@ -56,7 +56,7 @@ function OurProcess() {
                 <span className='md:text-4xl text-xl font-bold '>
                     Complex Problems<br />
                     <span className='text-secondary '>
-                        Powerful Solutions
+                        Impactful Solutions
                     </span>
 
                 </span>
@@ -65,7 +65,7 @@ function OurProcess() {
                 quality, and robust solutions that fill the gap</span>
 
             <div
-                className='flex lg:flex-row flex-col justify-evenly items-start  xl:gap-16 lg:gap-8 gap-4'
+                className='flex lg:flex-row flex-col justify-evenly items-start  xl:gap-12 lg:gap-8 gap-4'
             >
                 {steps.map(
                     (item) => {

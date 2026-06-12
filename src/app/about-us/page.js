@@ -5,7 +5,7 @@ import Header from '@/components/header'
 function AboutUs() {
     return (
         <div>
-            <Header />
+            <Header active={"about"} />
 
             <div 
             className='text-secondary md:text-xl text-lg font-bold md:px-32 md:pt-16 px-4 pt-2'>

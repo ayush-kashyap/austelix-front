@@ -10,7 +10,8 @@ function Footer() {
         <div className=' xl:px-32 lg:px-24 md:px-32 px-6 md:pt-16 py-8 flex  flex-col justify-between items-center gap-8 bg-gray-50 text-black '>
 
             <div className=' flex  flex-col justify-between lg:items-center items-start gap-8 lg:flex-row'>
-                <div className='flex-1'>
+            
+                <div className=''>
 
                     <Image src="/logo-transparent.png" alt="austelix" width={150} height={150} className=' mb-4' />
                     <span className="lg:text-lg md:text-md text-xs font-bold">
@@ -44,7 +45,7 @@ function Footer() {
                         className='grid grid-cols-2 gap-4 mt-6'
                     >
                         <Link href='/'>Home</Link>
-                        <Link href='/services'>Services</Link>
+                        {/* <Link href='/services'>Services</Link> */}
                         <Link href='/about-us'>About Us</Link>
                         <Link href='/work'>Work</Link>
                         <Link href='/pricing'>Pricing</Link>
@@ -85,7 +86,7 @@ function Footer() {
                 </div>
             </div>
             <span>
-            © 2025 Austelix. All rights reserved.
+            © 2026 Austelix | All rights reserved.
             </span>
         </div>
     )

@@ -7,29 +7,29 @@ function WelcomeScreen() {
     <div
       className="bg-main h-screen"
     >
-      <Header />
+      <Header active={"home"}/>
 
       <div
         className="flex flex-col gap-12 items-center md:items-start justify-center h-[calc(100vh-100px)] md:px-16"
       >
         <div
-          className="flex gap-2 items-center py-2 px-4 border border-gray-800 rounded-full"
+          className="flex gap-2 items-center py-2 px-4 border border-gray-500 rounded-full"
         >
           <Brain strokeWidth={1} size={20} />
           <span className="lg:text-lg md:text-md text-xs">
             Intelligent Core, &nbsp;
 
-            <span className="text-secondary">Powerful Brands</span>
+            <span className="text-secondary font-semibold">Powerful Brands</span>
           </span>
         </div>
         <span
-          className="lg:text-6xl sm:text-5xl text-2xl text-center md:text-left font-bold font-Mon"
+          className="lg:text-6xl sm:text-5xl text-2xl text-center md:text-left font-bold bg-gradient-to-b from-white/60  to-(--secondary-color) bg-clip-text text-transparent"
         >
-          Digital Solutions <br />That Empower
+          Discover.  <br />Build.
           <br />
           <span
             className="text-secondary"
-          >Your Business</span>
+          >Impact.</span>
         </span>
         {/* <span className="lg:text-xl md:text-lg md:block hidden font-semibold ">
           AI Powered SAAS Solutions <span className="text-secondary">|</span> Custom Softwares <span className="text-secondary">|</span> Digital Marketing
@@ -39,7 +39,7 @@ function WelcomeScreen() {
     target='_blank'
     className='bg-secondary sliding-animation  flex justify-between items-center gap-4   md:pl-4 md:pr-6 md:py-2  py-1 px-2 rounded-full font-semibold red-shadow '
     >
-       <span className='lg:text-lg md:text-md text-xs'> Let's Build Something Great </span>
+       <span className='lg:text-lg md:text-md text-xs'> Explore our products </span>
     <div
     className='bg-secondary p-1 rounded-full '
     ><ArrowRight className=""/></div>
