@@ -44,7 +44,7 @@ function DiscoverBuildImpact() {
 
             <div className='relative mt-8'>
                 {/* intensifying rail (desktop only) */}
-                <div className='spine-rail hidden lg:block top-19' />
+                <div className='spine-rail hidden lg:block' />
 
                 <div className='grid grid-cols-1 lg:grid-cols-3 lg:gap-0 gap-10'>
                     {stages.map((s) => (

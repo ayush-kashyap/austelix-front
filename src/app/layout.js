@@ -1,4 +1,5 @@
 import { Montserrat, DM_Sans, Plus_Jakarta_Sans } from "next/font/google";
+import { Providers } from "@/providers";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -18,7 +19,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 
 export const metadata = {
   title: "Austelix",
-  description: "Intelligent Software, Powerful Brands",
+  description: "Intelligent Core, Powerful Brands",
 };
 
 export default function RootLayout({ children }) {
@@ -27,7 +28,10 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${montserrat.variable} ${dmSans.variable} ${plusJakartaSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+      <Providers>{children}</Providers>
+
+      </body>
     </html>
   );
 }

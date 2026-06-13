@@ -21,15 +21,15 @@ function Header({active}) {
         <div className={`${active=="home"? "border-b-2 border-(--secondary-color)":""} p-1  `}>
         <Link href='/' className='text-shadow-lg text-shadow-white/10'>Home</Link>
         </div>
-        {/* <div className={`${active=="service"? "border-b-2 border-[var(--secondary-color)]":""} p-1`}>
+        <div className={`${active=="service"? "border-b-2 border-[var(--secondary-color)]":""} p-1`}>
         <Link href='/services' className='text-shadow-lg text-shadow-[#fff]/10'>Services</Link>
-        </div> */}
+        </div>
         <div className={`${active=="about"? "border-b-2 border-(--secondary-color)":""} p-1`}>
         <Link href='/about-us' className='text-shadow-lg text-shadow-white/10'>About Us</Link>
         </div>
-        {/* <div className={`${active=="work"? "border-b-2 border-(--secondary-color)":""} p-1`}>
+        <div className={`${active=="work"? "border-b-2 border-(--secondary-color)":""} p-1`}>
         <Link href='/work' className='text-shadow-lg text-shadow-white/10'>Work</Link>
-        </div> */}
+        </div>
         {/* <div className={`${active=="pricing"? "border-b-2 border-[var(--secondary-color)]":""} p-1`}>
         <Link href='/pricing' className='text-shadow-lg text-shadow-[#fff]/10'>Pricing</Link>
         </div> */}

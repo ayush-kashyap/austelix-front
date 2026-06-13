@@ -45,9 +45,9 @@ function Footer() {
                         className='grid grid-cols-2 gap-4 mt-6'
                     >
                         <Link href='/'>Home</Link>
-                        {/* <Link href='/services'>Services</Link> */}
+                        <Link href='/services'>Services</Link>
                         <Link href='/about-us'>About Us</Link>
-                        {/* <Link href='/work'>Work</Link> */}
+                        <Link href='/work'>Work</Link>
                         {/* <Link href='/pricing'>Pricing</Link> */}
                         <Link href='/blogs'>Blog</Link>
                         <Link href='/contact-us'>Contact Us</Link>

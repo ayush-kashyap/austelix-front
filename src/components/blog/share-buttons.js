@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import {  Link2, Check } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faTwitter,faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faFacebookF, faXTwitter,faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 
 function ShareButtons({ title, url }) {
   const [copied, setCopied] = useState(false);
@@ -16,17 +16,17 @@ function ShareButtons({ title, url }) {
   const links = [
     {
       label: "Share on X",
-      icon: faTwitter,
+      icon: faXTwitter,
       href: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
     },
     {
       label: "Share on LinkedIn",
-      icon: faLinkedin,
+      icon: faLinkedinIn,
       href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
     },
     {
       label: "Share on Facebook",
-      icon: faFacebook,
+      icon: faFacebookF,
       href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
     },
   ];
@@ -54,7 +54,7 @@ function ShareButtons({ title, url }) {
             aria-label={label}
             className="flex items-center justify-center w-9 h-9 rounded-full border border-[#1A1A1A] text-zinc-300 transition-colors hover:border-[#C70A0E]/50 hover:text-secondary"
           >
-            <FontAwesomeIcon icon={Icon} size={16} />
+            <FontAwesomeIcon icon={Icon} height={16} />
           </a>
         ))}
         <button

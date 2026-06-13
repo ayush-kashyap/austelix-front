@@ -16,7 +16,7 @@ function WelcomeScreen() {
           className="flex gap-2 items-center py-2 px-4 border border-gray-500 rounded-full"
         >
           <Brain strokeWidth={1} size={20} />
-          <span className="lg:text-lg md:text-md text-xs">
+          <span className="  lg:text-lg md:text-md text-xs">
             Intelligent Core, &nbsp;
 
             <span className="text-secondary font-semibold">Powerful Brands</span>
