@@ -1,7 +1,7 @@
 "use client";
 
 import { ThemeProvider } from "./theme-provider";
-import { QueryProvider } from "./query-provider";
+import { StoreProvider } from "./store-provider";
 
 export function Providers({ children }) {
   return (
@@ -11,7 +11,7 @@ export function Providers({ children }) {
       enableSystem
       disableTransitionOnChange
     >
-      <QueryProvider>{children}</QueryProvider>
+      <StoreProvider>{children}</StoreProvider>
     </ThemeProvider>
   );
 }

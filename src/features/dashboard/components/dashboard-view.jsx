@@ -1,55 +1,66 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { dashboardService } from "@/services/dashboard.service";
-import { useArticles } from "@/hooks/use-articles";
+import { useMemo } from "react";
+import { useAppSelector } from "@/store/hooks";
+import { selectAllArticles } from "@/store/slices/articlesSlice";
+import { selectAllComments } from "@/store/slices/commentsSlice";
 import { PageHeader } from "@/components/shared/page-header";
-import { StatCardsSkeleton } from "@/components/shared/skeletons";
-import { ErrorState } from "@/components/shared/error-state";
-import { Skeleton } from "@/components/ui/skeleton";
 import { OverviewCards } from "./overview-cards";
 import { DashboardCharts } from "./charts";
 import { RecentActivity } from "./recent-activity";
-import { mockComments } from "@/services/mock-data";
+
+const DASHBOARD_OVERVIEW = {
+  stats: {
+    totalArticles: 41,
+    published: 28,
+    drafts: 9,
+    totalViews: 184320,
+    comments: 312,
+  },
+  viewsSeries: [
+    { date: "Mon", views: 4200 },
+    { date: "Tue", views: 5100 },
+    { date: "Wed", views: 4800 },
+    { date: "Thu", views: 6300 },
+    { date: "Fri", views: 7400 },
+    { date: "Sat", views: 5200 },
+    { date: "Sun", views: 4600 },
+  ],
+  categorySeries: [
+    { name: "Engineering", value: 17 },
+    { name: "Product", value: 9 },
+    { name: "Design", value: 6 },
+    { name: "Company", value: 4 },
+    { name: "Other", value: 5 },
+  ],
+};
 
 export function DashboardView() {
-  const overview = useQuery({
-    queryKey: ["dashboard", "overview"],
-    queryFn: () => dashboardService.overview(),
-  });
-  const recent = useArticles({ sort: "newest", pageSize: 5 });
+  const articles = useAppSelector(selectAllArticles);
+  const comments = useAppSelector(selectAllComments);
 
-  if (overview.isError) {
-    return (
-      <>
-        <PageHeader title="Dashboard" description="Your editorial activity at a glance." />
-        <ErrorState onRetry={() => overview.refetch()} />
-      </>
-    );
-  }
+  const recentArticles = useMemo(
+    () =>
+      [...articles]
+        .sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt))
+        .slice(0, 5),
+    [articles]
+  );
+
+  const recentComments = useMemo(() => comments.slice(0, 4), [comments]);
 
   return (
     <>
       <PageHeader title="Dashboard" description="Your editorial activity at a glance." />
 
-      {overview.isLoading || !overview.data ? (
-        <div className="space-y-4">
-          <StatCardsSkeleton />
-          <Skeleton className="h-[320px] w-full rounded-xl" />
-        </div>
-      ) : (
-        <div className="space-y-6">
-          <OverviewCards stats={overview.data.stats} />
-          <DashboardCharts
-            viewsSeries={overview.data.viewsSeries}
-            categorySeries={overview.data.categorySeries}
-          />
-          <RecentActivity
-            articles={recent.data?.data ?? []}
-            comments={mockComments.slice(0, 4)}
-          />
-        </div>
-      )}
+      <div className="space-y-6">
+        <OverviewCards stats={DASHBOARD_OVERVIEW.stats} />
+        <DashboardCharts
+          viewsSeries={DASHBOARD_OVERVIEW.viewsSeries}
+          categorySeries={DASHBOARD_OVERVIEW.categorySeries}
+        />
+        <RecentActivity articles={recentArticles} comments={recentComments} />
+      </div>
     </>
   );
 }

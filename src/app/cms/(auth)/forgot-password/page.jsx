@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { authService } from "@/services/dashboard.service";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,13 +9,9 @@ import { Label } from "@/components/ui/label";
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  async function submit(e) {
+  function submit(e) {
     e.preventDefault();
-    setLoading(true);
-    await authService.requestPasswordReset({ email });
-    setLoading(false);
     setSent(true);
   }
 
@@ -28,7 +23,7 @@ export default function ForgotPasswordPage() {
           If an account exists for {email || "that address"}, a reset link is on its way.
         </p>
         <Button asChild variant="outline" className="w-full">
-          <Link href="/login">Back to sign in</Link>
+          <Link href="/cms/login">Back to sign in</Link>
         </Button>
       </div>
     );
@@ -51,11 +46,9 @@ export default function ForgotPasswordPage() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <Button type="submit" className="w-full" disabled={loading}>
-          {loading ? "Sending…" : "Send reset link"}
-        </Button>
+        <Button type="submit" className="w-full">Send reset link</Button>
         <p className="text-center text-sm text-muted-foreground">
-          <Link href="/login" className="text-primary hover:underline">
+          <Link href="/cms/login" className="text-primary hover:underline">
             Back to sign in
           </Link>
         </p>

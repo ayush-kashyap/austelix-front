@@ -11,7 +11,7 @@ export function RecentActivity({ articles, comments }) {
       <Card>
         <CardHeader className="flex-row items-center justify-between">
           <CardTitle className="text-sm">Recently edited</CardTitle>
-          <Link href="/articles" className="text-xs text-primary hover:underline">
+          <Link href="/cms/articles" className="text-xs text-primary hover:underline">
             View all
           </Link>
         </CardHeader>
@@ -19,7 +19,7 @@ export function RecentActivity({ articles, comments }) {
           {articles.map((a) => (
             <Link
               key={a.id}
-              href={`/articles/${a.id}/edit`}
+              href={`/cms/articles/${a.id}/edit`}
               className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0"
             >
               <div className="min-w-0">
@@ -37,7 +37,7 @@ export function RecentActivity({ articles, comments }) {
       <Card>
         <CardHeader className="flex-row items-center justify-between">
           <CardTitle className="text-sm">Recent comments</CardTitle>
-          <Link href="/comments" className="text-xs text-primary hover:underline">
+          <Link href="/cms/comments" className="text-xs text-primary hover:underline">
             Moderate
           </Link>
         </CardHeader>

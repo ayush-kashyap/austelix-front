@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { NAV_ITEMS } from "@/lib/constants";
-import { useUIStore } from "@/lib/store";
-import { authService } from "@/services/dashboard.service";
-import { useRouter } from "next/navigation";
+import { clearUser } from "@/store/slices/authSlice";
+import { useAppDispatch } from "@/store/hooks";
 import { cn } from "@/lib/utils";
 
 function Logo() {
@@ -20,19 +19,19 @@ function Logo() {
   );
 }
 
-export function AppSidebar() {
+export function AppSidebar({ sidebarOpen, setSidebarOpen }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { sidebarOpen, setSidebarOpen } = useUIStore();
+  const dispatch = useAppDispatch();
 
-  async function signOut() {
-    await authService.logout();
-    router.push("/login");
+  function signOut() {
+    document.cookie = "austelix_session=; path=/; max-age=0";
+    dispatch(clearUser());
+    router.push("/cms/login");
   }
 
   return (
     <>
-      {/* Mobile overlay */}
       <div
         onClick={() => setSidebarOpen(false)}
         className={cn(

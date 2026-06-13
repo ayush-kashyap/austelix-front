@@ -1,7 +1,6 @@
-// Seed data so the entire UI runs with zero backend. Shapes mirror the
-// JSDoc typedefs in src/types/index.js.
+// Default CMS seed data. Loaded once into the Redux store on app start.
 
-export const mockCategories = [
+export const initialCategories = [
   { id: "c1", name: "Engineering", slug: "engineering", description: "Deep dives and build logs.", parentId: null, articleCount: 12 },
   { id: "c2", name: "Frontend", slug: "frontend", description: "UI, UX and the browser.", parentId: "c1", articleCount: 7 },
   { id: "c3", name: "Backend", slug: "backend", description: "APIs, data and infra.", parentId: "c1", articleCount: 5 },
@@ -10,7 +9,14 @@ export const mockCategories = [
   { id: "c6", name: "Company", slug: "company", description: "News and culture.", parentId: null, articleCount: 4 },
 ];
 
-export const mockTags = [
+export const initialAuthors = [
+  { id: "u1", name: "Ava Mercer", avatar: "https://i.pravatar.cc/100?img=47" },
+  { id: "u2", name: "Liam Okafor", avatar: "https://i.pravatar.cc/100?img=12" },
+  { id: "u3", name: "Noor Haddad", avatar: "https://i.pravatar.cc/100?img=32" },
+  { id: "u4", name: "Theo Lindqvist", avatar: "https://i.pravatar.cc/100?img=15" },
+];
+
+const tagCatalog = [
   { id: "t1", name: "React", slug: "react", articleCount: 14 },
   { id: "t2", name: "Next.js", slug: "nextjs", articleCount: 11 },
   { id: "t3", name: "TypeScript", slug: "typescript", articleCount: 9 },
@@ -21,16 +27,9 @@ export const mockTags = [
   { id: "t8", name: "Security", slug: "security", articleCount: 3 },
 ];
 
-export const mockAuthors = [
-  { id: "u1", name: "Ava Mercer", avatar: "https://i.pravatar.cc/100?img=47" },
-  { id: "u2", name: "Liam Okafor", avatar: "https://i.pravatar.cc/100?img=12" },
-  { id: "u3", name: "Noor Haddad", avatar: "https://i.pravatar.cc/100?img=32" },
-  { id: "u4", name: "Theo Lindqvist", avatar: "https://i.pravatar.cc/100?img=15" },
-];
-
-const cat = (id) => mockCategories.find((c) => c.id === id);
-const tag = (...ids) => mockTags.filter((t) => ids.includes(t.id));
-const author = (id) => mockAuthors.find((a) => a.id === id);
+const cat = (id) => initialCategories.find((c) => c.id === id);
+const tag = (...ids) => tagCatalog.filter((t) => ids.includes(t.id));
+const author = (id) => initialAuthors.find((a) => a.id === id);
 
 function makeArticle(i, overrides = {}) {
   const created = new Date(Date.now() - i * 86400000 * 3).toISOString();
@@ -60,7 +59,7 @@ function makeArticle(i, overrides = {}) {
   };
 }
 
-export const mockArticles = [
+export const initialArticles = [
   makeArticle(1, {
     title: "Building a design system that scales",
     slug: "building-a-design-system-that-scales",
@@ -190,16 +189,7 @@ export const mockArticles = [
   }),
 ];
 
-export const mockMedia = [
-  { id: "m1", name: "hero-banner.jpg", url: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&q=60", type: "image", mimeType: "image/jpeg", size: 248000, uploadedAt: new Date(Date.now() - 86400000).toISOString() },
-  { id: "m2", name: "team-offsite.jpg", url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=60", type: "image", mimeType: "image/jpeg", size: 512000, uploadedAt: new Date(Date.now() - 86400000 * 2).toISOString() },
-  { id: "m3", name: "architecture-diagram.png", url: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=60", type: "image", mimeType: "image/png", size: 184000, uploadedAt: new Date(Date.now() - 86400000 * 3).toISOString() },
-  { id: "m4", name: "q3-report.pdf", url: "#", type: "pdf", mimeType: "application/pdf", size: 1340000, uploadedAt: new Date(Date.now() - 86400000 * 5).toISOString() },
-  { id: "m5", name: "product-shot.jpg", url: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&q=60", type: "image", mimeType: "image/jpeg", size: 396000, uploadedAt: new Date(Date.now() - 86400000 * 6).toISOString() },
-  { id: "m6", name: "onboarding-flow.png", url: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=60", type: "image", mimeType: "image/png", size: 224000, uploadedAt: new Date(Date.now() - 86400000 * 8).toISOString() },
-];
-
-export const mockComments = [
+export const initialComments = [
   { id: "cm1", author: { name: "Jordan Pike", email: "jordan@example.com", avatar: "https://i.pravatar.cc/100?img=5" }, articleId: "a2", articleTitle: "Server components changed how we fetch data", body: "This finally made RSC click for me. The streaming section was gold.", status: "approved", createdAt: new Date(Date.now() - 3600000 * 5).toISOString() },
   { id: "cm2", author: { name: "Sam Iyer", email: "sam@example.com" }, articleId: "a1", articleTitle: "Building a design system that scales", body: "How do you handle versioning when a token changes?", status: "pending", createdAt: new Date(Date.now() - 3600000 * 9).toISOString() },
   { id: "cm3", author: { name: "buy-cheap-now", email: "spam@bots.io" }, articleId: "a5", articleTitle: "Our incident review process, end to end", body: "Check out my link for free followers!!!", status: "spam", createdAt: new Date(Date.now() - 3600000 * 14).toISOString() },
@@ -207,7 +197,7 @@ export const mockComments = [
   { id: "cm5", author: { name: "Marcus Reed", email: "marcus@example.com" }, articleId: "a11", articleTitle: "Edge runtime: when it helps and when it hurts", body: "Cold starts were our killer too. Great breakdown.", status: "approved", createdAt: new Date(Date.now() - 3600000 * 40).toISOString() },
 ];
 
-export const mockUsers = [
+export const initialUsers = [
   { id: "u1", name: "Ava Mercer", email: "ava@austelix.com", avatar: "https://i.pravatar.cc/100?img=47", role: "admin", status: "active", createdAt: new Date(Date.now() - 86400000 * 400).toISOString() },
   { id: "u2", name: "Liam Okafor", email: "liam@austelix.com", avatar: "https://i.pravatar.cc/100?img=12", role: "editor", status: "active", createdAt: new Date(Date.now() - 86400000 * 300).toISOString() },
   { id: "u3", name: "Noor Haddad", email: "noor@austelix.com", avatar: "https://i.pravatar.cc/100?img=32", role: "writer", status: "active", createdAt: new Date(Date.now() - 86400000 * 210).toISOString() },
@@ -215,29 +205,3 @@ export const mockUsers = [
   { id: "u5", name: "Dana Cole", email: "dana@austelix.com", role: "viewer", status: "invited", createdAt: new Date(Date.now() - 86400000 * 10).toISOString() },
   { id: "u6", name: "Felix Wu", email: "felix@austelix.com", role: "editor", status: "suspended", createdAt: new Date(Date.now() - 86400000 * 90).toISOString() },
 ];
-
-export const mockDashboard = {
-  stats: {
-    totalArticles: 41,
-    published: 28,
-    drafts: 9,
-    totalViews: 184320,
-    comments: 312,
-  },
-  viewsSeries: [
-    { date: "Mon", views: 4200 },
-    { date: "Tue", views: 5100 },
-    { date: "Wed", views: 4800 },
-    { date: "Thu", views: 6300 },
-    { date: "Fri", views: 7400 },
-    { date: "Sat", views: 5200 },
-    { date: "Sun", views: 4600 },
-  ],
-  categorySeries: [
-    { name: "Engineering", value: 17 },
-    { name: "Product", value: 9 },
-    { name: "Design", value: 6 },
-    { name: "Company", value: 4 },
-    { name: "Other", value: 5 },
-  ],
-};

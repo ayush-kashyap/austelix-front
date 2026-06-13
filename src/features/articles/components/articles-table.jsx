@@ -15,13 +15,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
-import { useDeleteArticle, useDuplicateArticle } from "@/hooks/use-articles";
+import { useAppDispatch } from "@/store/hooks";
+import { duplicateArticle, removeArticle } from "@/store/slices/articlesSlice";
 import { formatDate, formatNumber, initials } from "@/lib/format";
 
 function RowActions({ article }) {
   const router = useRouter();
-  const del = useDeleteArticle();
-  const dup = useDuplicateArticle();
+  const dispatch = useAppDispatch();
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   return (
@@ -33,16 +33,13 @@ function RowActions({ article }) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => router.push(`/articles/${article.id}/edit`)}>
+          <DropdownMenuItem onClick={() => router.push(`/cms/articles/${article.id}/edit`)}>
             <Pencil className="h-4 w-4" /> Edit
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => window.open(`/blogs/${article.slug}`, "_blank")}>
             <Eye className="h-4 w-4" /> Preview
           </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => dup.mutate(article.id)}
-            disabled={dup.isPending}
-          >
+          <DropdownMenuItem onClick={() => dispatch(duplicateArticle(article.id))}>
             <Copy className="h-4 w-4" /> Duplicate
           </DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -62,7 +59,7 @@ function RowActions({ article }) {
         description={`"${article.title}" will be permanently removed. This can't be undone.`}
         confirmLabel="Delete"
         destructive
-        onConfirm={() => del.mutate(article.id)}
+        onConfirm={() => dispatch(removeArticle(article.id))}
       />
     </>
   );

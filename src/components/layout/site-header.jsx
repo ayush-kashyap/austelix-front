@@ -2,10 +2,12 @@
 
 import { PanelLeft, Search, Bell, Plus } from "lucide-react";
 import Link from "next/link";
-import { useUIStore } from "@/lib/store";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ThemeToggle } from "./theme-toggle";
+import { clearUser } from "@/store/slices/authSlice";
+import { useAppDispatch } from "@/store/hooks";
 import {
   Avatar,
   AvatarFallback,
@@ -20,8 +22,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export function SiteHeader() {
-  const toggleSidebar = useUIStore((s) => s.toggleSidebar);
+export function SiteHeader({ onToggleSidebar }) {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  function signOut() {
+    document.cookie = "austelix_session=; path=/; max-age=0";
+    dispatch(clearUser());
+    router.push("/cms/login");
+  }
 
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border bg-background/80 px-4 backdrop-blur">
@@ -29,7 +38,7 @@ export function SiteHeader() {
         variant="ghost"
         size="icon"
         aria-label="Toggle sidebar"
-        onClick={toggleSidebar}
+        onClick={onToggleSidebar}
       >
         <PanelLeft className="h-5 w-5" />
       </Button>
@@ -45,7 +54,7 @@ export function SiteHeader() {
 
       <div className="ml-auto flex items-center gap-1.5">
         <Button asChild size="sm" className="hidden sm:inline-flex">
-          <Link href="/articles/new">
+          <Link href="/cms/articles/new">
             <Plus className="h-4 w-4" /> New article
           </Link>
         </Button>
@@ -71,11 +80,9 @@ export function SiteHeader() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href="/settings">Settings</Link>
+              <Link href="/cms/settings">Settings</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href="/login">Sign out</Link>
-            </DropdownMenuItem>
+            <DropdownMenuItem onClick={signOut}>Sign out</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

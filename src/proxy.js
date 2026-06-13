@@ -5,9 +5,9 @@ const AUTH_ROUTES = ["/cms/login", "/cms/forgot-password", "/cms/reset-password"
 /**
  * Lightweight auth gate.
  *
- * In mock mode the session is a cookie named `austelix_session` (written by
- * authService.login). For real auth, replace the cookie check below with your
- * session/JWT verification — the routing logic stays the same.
+ * The session is a cookie named `austelix_session` (written on login).
+ * Replace the cookie check below with your session/JWT verification when
+ * wiring real auth — the routing logic stays the same.
  *
  * @param {import("next/server").NextRequest} request
  */

@@ -1,34 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { Check, Ban, Trash2 } from "lucide-react";
-import { commentsService } from "@/services/content.service";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { removeComment, selectAllComments, setCommentStatus } from "@/store/slices/commentsSlice";
 import { PageHeader } from "@/components/shared/page-header";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TableSkeleton } from "@/components/shared/skeletons";
 import { EmptyState } from "@/components/shared/empty-state";
 import { initials, timeAgo } from "@/lib/format";
 
 export default function CommentsPage() {
-  const { data, isLoading } = useQuery({
-    queryKey: ["comments"],
-    queryFn: () => commentsService.list(),
-  });
-
-  const [comments, setComments] = useState([]);
+  const dispatch = useAppDispatch();
+  const comments = useAppSelector(selectAllComments);
   const [filter, setFilter] = useState("all");
-  useEffect(() => {
-    if (data) setComments(data);
-  }, [data]);
-
-  const setStatus = (id, status) =>
-    setComments((cs) => cs.map((c) => (c.id === id ? { ...c, status } : c)));
-  const remove = (id) => setComments((cs) => cs.filter((c) => c.id !== id));
 
   const visible = comments.filter((c) => filter === "all" || c.status === filter);
   const countOf = (s) => comments.filter((c) => c.status === s).length;
@@ -46,9 +34,7 @@ export default function CommentsPage() {
         </TabsList>
       </Tabs>
 
-      {isLoading ? (
-        <TableSkeleton rows={4} />
-      ) : visible.length === 0 ? (
+      {visible.length === 0 ? (
         <EmptyState icon={Check} title="Nothing to moderate" description="There are no comments in this view." />
       ) : (
         <Card>
@@ -72,16 +58,16 @@ export default function CommentsPage() {
                 </div>
                 <div className="flex items-center gap-1.5">
                   {c.status !== "approved" && (
-                    <Button size="sm" variant="outline" onClick={() => setStatus(c.id, "approved")}>
+                    <Button size="sm" variant="outline" onClick={() => dispatch(setCommentStatus({ id: c.id, status: "approved" }))}>
                       <Check className="h-4 w-4" /> Approve
                     </Button>
                   )}
                   {c.status !== "spam" && (
-                    <Button size="sm" variant="outline" onClick={() => setStatus(c.id, "spam")}>
+                    <Button size="sm" variant="outline" onClick={() => dispatch(setCommentStatus({ id: c.id, status: "spam" }))}>
                       <Ban className="h-4 w-4" /> Spam
                     </Button>
                   )}
-                  <Button size="sm" variant="ghost" className="text-destructive" onClick={() => remove(c.id)}>
+                  <Button size="sm" variant="ghost" className="text-destructive" onClick={() => dispatch(removeComment(c.id))}>
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>

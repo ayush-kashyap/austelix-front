@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { authService } from "@/services/dashboard.service";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,17 +11,13 @@ export default function ResetPasswordPage() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  async function submit(e) {
+  function submit(e) {
     e.preventDefault();
     setError("");
     if (password.length < 6) return setError("Password must be at least 6 characters.");
     if (password !== confirm) return setError("Passwords don't match.");
-    setLoading(true);
-    await authService.resetPassword({ token: "mock", password });
-    setLoading(false);
-    router.push("/login");
+    router.push("/cms/login");
   }
 
   return (
@@ -41,9 +36,7 @@ export default function ResetPasswordPage() {
           <Input id="confirm" type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} placeholder="••••••••" />
         </div>
         {error && <p className="text-sm text-destructive">{error}</p>}
-        <Button type="submit" className="w-full" disabled={loading}>
-          {loading ? "Saving…" : "Update password"}
-        </Button>
+        <Button type="submit" className="w-full">Update password</Button>
       </form>
     </div>
   );

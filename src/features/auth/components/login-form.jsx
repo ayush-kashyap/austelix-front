@@ -3,39 +3,37 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { authService } from "@/services/dashboard.service";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setUser } from "@/store/slices/authSlice";
+import { selectAllUsers } from "@/store/slices/usersSlice";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const schema = z.object({
-  email: z.string().email("Enter a valid email address."),
-  password: z.string().min(6, "Password must be at least 6 characters."),
-});
-
 export function LoginForm() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const users = useAppSelector(selectAllUsers);
+  const [email, setEmail] = useState("ava@austelix.com");
+  const [password, setPassword] = useState("password");
   const [serverError, setServerError] = useState("");
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: { email: "ava@austelix.com", password: "password" },
-  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  async function onSubmit(values) {
+  function onSubmit(e) {
+    e.preventDefault();
     setServerError("");
-    try {
-      await authService.login(values);
-      router.push("/cms/dashboard");
-    } catch {
+    setIsSubmitting(true);
+
+    const user = users.find((u) => u.email === email);
+    if (!user || password.length < 6) {
       setServerError("We couldn't sign you in. Check your details and try again.");
+      setIsSubmitting(false);
+      return;
     }
+
+    document.cookie = "austelix_session=1; path=/; max-age=86400";
+    dispatch(setUser(user));
+    router.push("/cms/dashboard");
   }
 
   return (
@@ -45,26 +43,32 @@ export function LoginForm() {
         Sign in to your account to continue.
       </p>
 
-      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form className="space-y-4" onSubmit={onSubmit} noValidate>
         <div>
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="you@austelix.com" {...register("email")} />
-          {errors.email && (
-            <p className="mt-1 text-xs text-destructive">{errors.email.message}</p>
-          )}
+          <Input
+            id="email"
+            type="email"
+            placeholder="you@austelix.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
 
         <div>
           <div className="mb-1.5 flex items-center justify-between">
             <Label htmlFor="password" className="mb-0">Password</Label>
-            <Link href="/forgot-password" className="text-xs text-primary hover:underline">
+            <Link href="/cms/forgot-password" className="text-xs text-primary hover:underline">
               Forgot password?
             </Link>
           </div>
-          <Input id="password" type="password" placeholder="••••••••" {...register("password")} />
-          {errors.password && (
-            <p className="mt-1 text-xs text-destructive">{errors.password.message}</p>
-          )}
+          <Input
+            id="password"
+            type="password"
+            placeholder="••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
 
         {serverError && <p className="text-sm text-destructive">{serverError}</p>}

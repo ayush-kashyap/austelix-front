@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
@@ -12,7 +11,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useDebounce } from "@/hooks/use-debounce";
-import { lookupService } from "@/services/dashboard.service";
+import { useAppSelector } from "@/store/hooks";
+import { selectAllCategories } from "@/store/slices/categoriesSlice";
+import { selectAllAuthors } from "@/store/slices/authorsSlice";
 import { ARTICLE_STATUS_OPTIONS, SORT_OPTIONS } from "@/lib/constants";
 
 /**
@@ -21,20 +22,13 @@ import { ARTICLE_STATUS_OPTIONS, SORT_OPTIONS } from "@/lib/constants";
 export function ArticleFilters({ query, onChange }) {
   const [search, setSearch] = useState(query.search ?? "");
   const debounced = useDebounce(search, 350);
+  const categories = useAppSelector(selectAllCategories);
+  const authors = useAppSelector(selectAllAuthors);
 
   useEffect(() => {
     onChange({ search: debounced, page: 1 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debounced]);
-
-  const { data: categories = [] } = useQuery({
-    queryKey: ["categories"],
-    queryFn: () => lookupService.categories(),
-  });
-  const { data: authors = [] } = useQuery({
-    queryKey: ["authors"],
-    queryFn: () => lookupService.authors(),
-  });
 
   return (
     <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">

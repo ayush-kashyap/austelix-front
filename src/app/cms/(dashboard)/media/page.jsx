@@ -1,22 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { UploadCloud, Grid2x2, List as ListIcon, FileText } from "lucide-react";
-import { mediaService } from "@/services/content.service";
 import { PageHeader } from "@/components/shared/page-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { CardGridSkeleton } from "@/components/shared/skeletons";
 import { formatFileSize, formatDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
+const INITIAL_MEDIA = [
+  { id: "m1", name: "hero-banner.jpg", url: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&q=60", type: "image", mimeType: "image/jpeg", size: 248000, uploadedAt: new Date(Date.now() - 86400000).toISOString() },
+  { id: "m2", name: "team-offsite.jpg", url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=60", type: "image", mimeType: "image/jpeg", size: 512000, uploadedAt: new Date(Date.now() - 86400000 * 2).toISOString() },
+  { id: "m3", name: "architecture-diagram.png", url: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=60", type: "image", mimeType: "image/png", size: 184000, uploadedAt: new Date(Date.now() - 86400000 * 3).toISOString() },
+  { id: "m4", name: "q3-report.pdf", url: "#", type: "pdf", mimeType: "application/pdf", size: 1340000, uploadedAt: new Date(Date.now() - 86400000 * 5).toISOString() },
+  { id: "m5", name: "product-shot.jpg", url: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&q=60", type: "image", mimeType: "image/jpeg", size: 396000, uploadedAt: new Date(Date.now() - 86400000 * 6).toISOString() },
+  { id: "m6", name: "onboarding-flow.png", url: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=60", type: "image", mimeType: "image/png", size: 224000, uploadedAt: new Date(Date.now() - 86400000 * 8).toISOString() },
+];
+
 export default function MediaPage() {
   const [view, setView] = useState("grid");
-  const { data: media = [], isLoading } = useQuery({
-    queryKey: ["media"],
-    queryFn: () => mediaService.list(),
-  });
+  const [media] = useState(INITIAL_MEDIA);
 
   return (
     <>
@@ -32,9 +35,7 @@ export default function MediaPage() {
         <Button><UploadCloud className="h-4 w-4" /> Upload</Button>
       </PageHeader>
 
-      {isLoading ? (
-        <CardGridSkeleton count={6} />
-      ) : view === "grid" ? (
+      {view === "grid" ? (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {media.map((m) => (
             <Card key={m.id} className="overflow-hidden">
