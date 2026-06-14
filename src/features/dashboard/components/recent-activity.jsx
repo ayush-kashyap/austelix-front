@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { EmptyState } from "@/components/shared/empty-state";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { initials, timeAgo } from "@/lib/format";
 
@@ -16,6 +17,12 @@ export function RecentActivity({ articles, comments }) {
           </Link>
         </CardHeader>
         <CardContent className="divide-y">
+          {articles.length === 0 ? (
+            <EmptyState
+              title="No recent articles"
+              description="Recently edited articles will show up here."
+            />
+          ) : null}
           {articles.map((a) => (
             <Link
               key={a.id}
@@ -42,6 +49,12 @@ export function RecentActivity({ articles, comments }) {
           </Link>
         </CardHeader>
         <CardContent className="divide-y">
+          {comments.length === 0 ? (
+            <EmptyState
+              title="No recent comments"
+              description="New comments will appear here for moderation."
+            />
+          ) : null}
           {comments.map((c) => (
             <div key={c.id} className="flex gap-3 py-3 first:pt-0 last:pb-0">
               <Avatar className="h-8 w-8">

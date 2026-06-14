@@ -4,8 +4,10 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { NAV_ITEMS } from "@/lib/constants";
+import { ProjectSwitcher } from "@/components/layout/project-switcher";
 import { clearUser } from "@/store/slices/authSlice";
-import { useAppDispatch } from "@/store/hooks";
+import { selectActiveProjectId } from "@/store/slices/projectSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { cn } from "@/lib/utils";
 
 function Logo() {
@@ -23,6 +25,8 @@ export function AppSidebar({ sidebarOpen, setSidebarOpen }) {
   const pathname = usePathname();
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const activeProjectId = useAppSelector(state=>state.project.activeProjectId);
+  const activeProjectName = useAppSelector(state=>state.project.activeProjectName);
 
   function signOut() {
     document.cookie = "austelix_session=; path=/; max-age=0";
@@ -49,8 +53,14 @@ export function AppSidebar({ sidebarOpen, setSidebarOpen }) {
           <Logo />
           <div className="leading-tight">
             <div className="text-sm font-semibold">Austelix CMS</div>
-            <div className="text-[11px] text-muted-foreground">Content Studio</div>
+            <div className="text-[11px] text-muted-foreground">
+              {activeProjectName}
+            </div>
           </div>
+        </div>
+
+        <div className="border-b border-border p-3 md:hidden">
+          <ProjectSwitcher />
         </div>
 
         <nav className="flex-1 space-y-1 overflow-y-auto p-3">

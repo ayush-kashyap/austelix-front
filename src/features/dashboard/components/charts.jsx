@@ -1,8 +1,6 @@
 "use client";
 
 import {
-  Area,
-  AreaChart,
   Bar,
   BarChart,
   CartesianGrid,
@@ -12,6 +10,7 @@ import {
   YAxis,
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { EmptyState } from "@/components/shared/empty-state";
 
 const axisProps = {
   stroke: "hsl(var(--muted-foreground))",
@@ -34,45 +33,20 @@ function ChartTooltip({ active, payload, label }) {
   );
 }
 
-/** @param {{ viewsSeries: any[], categorySeries: any[] }} props */
-export function DashboardCharts({ viewsSeries, categorySeries }) {
+/** @param {{ categorySeries: any[] }} props */
+export function DashboardCharts({ categorySeries }) {
   return (
-    <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-      <Card className="lg:col-span-2">
-        <CardHeader>
-          <CardTitle className="text-sm">Views this week</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={260}>
-            <AreaChart data={viewsSeries} margin={{ left: -16, right: 8, top: 8 }}>
-              <defs>
-                <linearGradient id="views" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="hsl(var(--chart-1))" stopOpacity={0.4} />
-                  <stop offset="100%" stopColor="hsl(var(--chart-1))" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-              <XAxis dataKey="date" {...axisProps} />
-              <YAxis {...axisProps} />
-              <Tooltip content={<ChartTooltip />} />
-              <Area
-                type="monotone"
-                dataKey="views"
-                name="Views"
-                stroke="hsl(var(--chart-1))"
-                strokeWidth={2}
-                fill="url(#views)"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-sm">Articles by category</CardTitle>
-        </CardHeader>
-        <CardContent>
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-sm">Articles by category</CardTitle>
+      </CardHeader>
+      <CardContent>
+        {categorySeries.length === 0 ? (
+          <EmptyState
+            title="No category data"
+            description="Category breakdown will appear once articles are loaded from the API."
+          />
+        ) : (
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={categorySeries} margin={{ left: -16, right: 8, top: 8 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
@@ -82,8 +56,8 @@ export function DashboardCharts({ viewsSeries, categorySeries }) {
               <Bar dataKey="value" name="Articles" fill="hsl(var(--chart-1))" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
-        </CardContent>
-      </Card>
-    </div>
+        )}
+      </CardContent>
+    </Card>
   );
 }

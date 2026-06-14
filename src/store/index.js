@@ -5,6 +5,7 @@ import authorsReducer from "@/store/slices/authorsSlice";
 import commentsReducer from "@/store/slices/commentsSlice";
 import usersReducer from "@/store/slices/usersSlice";
 import authReducer from "@/store/slices/authSlice";
+import projectReducer from "@/store/slices/projectSlice";
 
 export function makeStore() {
   return configureStore({
@@ -15,6 +16,7 @@ export function makeStore() {
       comments: commentsReducer,
       users: usersReducer,
       auth: authReducer,
+      project: projectReducer,
     },
   });
 }

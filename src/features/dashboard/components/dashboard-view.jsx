@@ -3,41 +3,38 @@
 import { useMemo } from "react";
 import { useAppSelector } from "@/store/hooks";
 import { selectAllArticles } from "@/store/slices/articlesSlice";
+import { selectAllCategories } from "@/store/slices/categoriesSlice";
 import { selectAllComments } from "@/store/slices/commentsSlice";
 import { PageHeader } from "@/components/shared/page-header";
 import { OverviewCards } from "./overview-cards";
 import { DashboardCharts } from "./charts";
 import { RecentActivity } from "./recent-activity";
 
-const DASHBOARD_OVERVIEW = {
-  stats: {
-    totalArticles: 41,
-    published: 28,
-    drafts: 9,
-    totalViews: 184320,
-    comments: 312,
-  },
-  viewsSeries: [
-    { date: "Mon", views: 4200 },
-    { date: "Tue", views: 5100 },
-    { date: "Wed", views: 4800 },
-    { date: "Thu", views: 6300 },
-    { date: "Fri", views: 7400 },
-    { date: "Sat", views: 5200 },
-    { date: "Sun", views: 4600 },
-  ],
-  categorySeries: [
-    { name: "Engineering", value: 17 },
-    { name: "Product", value: 9 },
-    { name: "Design", value: 6 },
-    { name: "Company", value: 4 },
-    { name: "Other", value: 5 },
-  ],
-};
-
 export function DashboardView() {
   const articles = useAppSelector(selectAllArticles);
+  const categories = useAppSelector(selectAllCategories);
   const comments = useAppSelector(selectAllComments);
+
+  const stats = useMemo(
+    () => ({
+      totalArticles: articles.length,
+      published: articles.filter((a) => a.status === "published").length,
+      drafts: articles.filter((a) => a.status === "draft").length,
+      totalViews: articles.reduce((sum, a) => sum + (a.views ?? 0), 0),
+      comments: comments.length,
+    }),
+    [articles, comments]
+  );
+
+  const categorySeries = useMemo(() => {
+    const counts = new Map(categories.map((c) => [c.id, { name: c.name, value: 0 }]));
+    for (const article of articles) {
+      const categoryId = article.categoryId ?? article.category?.id;
+      const entry = categoryId ? counts.get(categoryId) : null;
+      if (entry) entry.value += 1;
+    }
+    return [...counts.values()].filter((c) => c.value > 0);
+  }, [articles, categories]);
 
   const recentArticles = useMemo(
     () =>
@@ -54,11 +51,8 @@ export function DashboardView() {
       <PageHeader title="Dashboard" description="Your editorial activity at a glance." />
 
       <div className="space-y-6">
-        <OverviewCards stats={DASHBOARD_OVERVIEW.stats} />
-        <DashboardCharts
-          viewsSeries={DASHBOARD_OVERVIEW.viewsSeries}
-          categorySeries={DASHBOARD_OVERVIEW.categorySeries}
-        />
+        <OverviewCards stats={stats} />
+        <DashboardCharts categorySeries={categorySeries} />
         <RecentActivity articles={recentArticles} comments={recentComments} />
       </div>
     </>

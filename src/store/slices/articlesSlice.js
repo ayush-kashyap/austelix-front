@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initialArticles } from "@/store/initial-data";
 
 const articlesSlice = createSlice({
   name: "articles",
-  initialState: { items: initialArticles },
+  initialState: { items: [] },
   reducers: {
+    setArticles(state, action) {
+      state.items = action.payload;
+    },
     addArticle(state, action) {
       state.items.unshift(action.payload);
     },
@@ -36,7 +38,8 @@ const articlesSlice = createSlice({
   },
 });
 
-export const { addArticle, updateArticle, removeArticle, duplicateArticle } = articlesSlice.actions;
+export const { setArticles, addArticle, updateArticle, removeArticle, duplicateArticle } =
+  articlesSlice.actions;
 export default articlesSlice.reducer;
 
 export const selectAllArticles = (state) => state.articles.items;

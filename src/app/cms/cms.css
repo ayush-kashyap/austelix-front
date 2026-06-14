@@ -2,8 +2,10 @@
 
 @custom-variant cms-dark (&:is(.dark .austelix-cms *));
 
-/* CMS design tokens — scoped to .austelix-cms, isolated from the main site theme. */
-.austelix-cms {
+/* CMS design tokens — scoped to .austelix-cms, isolated from the main site theme.
+   .austelix-cms-portal mirrors these for Radix portaled overlays (rendered on document.body). */
+.austelix-cms,
+.austelix-cms-portal {
   --cms-background: 0 0% 100%;
   --cms-foreground: 240 10% 3.9%;
   --cms-card: 0 0% 100%;
@@ -95,7 +97,8 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.dark .austelix-cms {
+.dark .austelix-cms,
+.dark .austelix-cms-portal {
   --cms-background: 240 10% 3.9%;
   --cms-foreground: 0 0% 98%;
   --cms-card: 240 6% 10%;
@@ -125,14 +128,22 @@
 @layer base {
   .austelix-cms *,
   .austelix-cms *::before,
-  .austelix-cms *::after {
+  .austelix-cms *::after,
+  .austelix-cms-portal,
+  .austelix-cms-portal *,
+  .austelix-cms-portal *::before,
+  .austelix-cms-portal *::after {
     border-color: hsl(var(--cms-border));
   }
 
   @media (prefers-reduced-motion: reduce) {
     .austelix-cms *,
     .austelix-cms *::before,
-    .austelix-cms *::after {
+    .austelix-cms *::after,
+    .austelix-cms-portal,
+    .austelix-cms-portal *,
+    .austelix-cms-portal *::before,
+    .austelix-cms-portal *::after {
       animation-duration: 0.001ms !important;
       transition-duration: 0.001ms !important;
     }

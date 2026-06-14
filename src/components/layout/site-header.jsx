@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ThemeToggle } from "./theme-toggle";
+import { ProjectSwitcher } from "./project-switcher";
 import { clearUser } from "@/store/slices/authSlice";
 import { useAppDispatch } from "@/store/hooks";
 import {
@@ -52,7 +53,8 @@ export function SiteHeader({ onToggleSidebar }) {
         />
       </div>
 
-      <div className="ml-auto flex items-center gap-1.5">
+      <div className="ml-auto flex items-center gap-2 sm:gap-3">
+        <ProjectSwitcher className="hidden md:flex" />
         <Button asChild size="sm" className="hidden sm:inline-flex">
           <Link href="/cms/articles/new">
             <Plus className="h-4 w-4" /> New article
