@@ -220,7 +220,7 @@ function AboutUs() {
             <section className='xl:px-32 lg:px-24 md:px-32 px-6 md:py-16 py-10'>
                 <span className='text-secondary md:text-xl text-lg font-bold'>OUR TEAM</span>
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mt-8'>
-                    <div className='backdrop-shadow-white'>
+                    <div className='backdrop-shadow-white flex justify-center'>
                         <Image src='/founder-img.jpg' width={500} height={500} alt='Founder'
                             className=' rounded-[18px] border border-[#1A1A1A]' />
                     </div>

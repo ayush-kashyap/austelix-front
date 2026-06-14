@@ -15,10 +15,11 @@ export function proxy(request) {
   const { pathname } = request.nextUrl;
   const isAuthed = Boolean(request.cookies.get("austelix_session"));
   const isAuthRoute = AUTH_ROUTES.some((r) => pathname.startsWith(r));
+  const isCMSRoute = pathname.startsWith("/cms");
 
   // Unauthenticated users can only see auth routes.
 
-  if (!isAuthed && !isAuthRoute && request.nextUrl.pathname!=="/") {
+  if (!isAuthed && !isAuthRoute && isCMSRoute) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
     return NextResponse.redirect(url);

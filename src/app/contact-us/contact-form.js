@@ -95,7 +95,7 @@ function ContactForm() {
           <input
             value={values.name}
             onChange={update("name")}
-            placeholder="Jane Doe"
+            placeholder="Mr. XYZ"
             className={`${inputBase} ${errors.name ? bad : ok}`}
           />
           {errors.name && (
@@ -110,7 +110,7 @@ function ContactForm() {
             type="email"
             value={values.email}
             onChange={update("email")}
-            placeholder="you@company.com"
+            placeholder="xyz@company.com"
             className={`${inputBase} ${errors.email ? bad : ok}`}
           />
           {errors.email && (

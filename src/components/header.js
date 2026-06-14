@@ -1,9 +1,29 @@
-import React from 'react'
+"use client"
+import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react' 
 import Link from 'next/link'
+import { useAppSelector } from '@/store/hooks'
 
 function Header({active}) {
+  const user = useAppSelector((state) => state.auth.user)
+  const navigationRef= useRef();
+  useEffect(
+    ()=>{
+      console.log(user);
+      if(user){
+        navigationRef.current.addElement(
+          <div >
+          <Link href='/cms/dashboard' className='text-shadow-lg text-shadow-white/10'>CMS</Link>
+          </div>
+        )
+      }
+      
+
+    },[]
+  )
+
+
   return (
     <header 
     className='flex justify-between items-center md:px-8 px-4 bg-glass-gradient'
@@ -16,12 +36,13 @@ function Header({active}) {
       alt="austelix"
     />
     <nav 
+    ref={navigationRef}
     className='font-bold font-dm-sans text-center gap-4 lg:flex hidden'
     >
         <div className={`${active=="home"? "border-b-2 border-(--secondary-color)":""} p-1  `}>
         <Link href='/' className='text-shadow-lg text-shadow-white/10'>Home</Link>
         </div>
-        <div className={`${active=="service"? "border-b-2 border-[var(--secondary-color)]":""} p-1`}>
+        <div className={`${active=="services"? "border-b-2 border-[var(--secondary-color)]":""} p-1`}>
         <Link href='/services' className='text-shadow-lg text-shadow-[#fff]/10'>Services</Link>
         </div>
         <div className={`${active=="about"? "border-b-2 border-(--secondary-color)":""} p-1`}>

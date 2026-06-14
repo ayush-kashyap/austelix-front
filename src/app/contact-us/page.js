@@ -53,9 +53,9 @@ const contactDetails = [
 ];
 
 const socials = [
-  { icon: faLinkedinIn, label: "LinkedIn", href: "#" },
-  { icon: faInstagram, label: "Instagram", href: "#" },
-  { icon: faFacebookF, label: "Facebook", href: "#" },
+  { icon: faLinkedinIn, label: "LinkedIn", href: "https://linkedin.com/company/austelix" },
+  { icon: faInstagram, label: "Instagram", href: "https://instagram.com/austelix" },
+  // { icon: faFacebookF, label: "Facebook", href: "#" },
 ];
 
 const steps = [
