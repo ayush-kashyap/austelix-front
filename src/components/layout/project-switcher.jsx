@@ -29,13 +29,13 @@ export function ProjectSwitcher({ className }) {
     writeStoredProjectId(projectId);
   }
 
-  // if (CMS_PROJECTS.length === 0) {
-  //   return (
-  //     <p className={cn("text-xs text-muted-foreground", className)}>
-  //       No projects configured
-  //     </p>
-  //   );
-  // }
+  if (projectList.length === 0) {
+    return (
+      <p className={cn("text-xs text-muted-foreground", className)}>
+        No projects configured
+      </p>
+    );
+  }
 
   return (
     <div className={cn("flex flex-col gap-1", className)}>
