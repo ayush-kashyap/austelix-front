@@ -221,7 +221,7 @@ function AboutUs() {
                 <span className='text-secondary md:text-xl text-lg font-bold'>OUR TEAM</span>
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mt-8'>
                     <div className='backdrop-shadow-white'>
-                        <Image src='/founder-img.jpg' width={500} height={500} alt='Founder'
+                        <Image src='/founder-img.JPG' width={500} height={500} alt='Founder'
                             className=' rounded-[18px] border border-[#1A1A1A]' />
                     </div>
                     <div>
