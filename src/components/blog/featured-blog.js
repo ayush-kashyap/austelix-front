@@ -5,6 +5,13 @@ import { ArrowRight } from "lucide-react";
 import CategoryBadge from "./category-badge";
 import AuthorInfo from "./author-info";
 
+// author fields are not in the DB schema — hardcoded here
+const DEFAULT_AUTHOR = {
+  name: "Ayush Kashyap",
+  role: "Founder, CTO",
+  image: "/square-img.jpg",
+};
+
 function FeaturedBlog({ blog }) {
   if (!blog) return null;
 
@@ -42,12 +49,11 @@ function FeaturedBlog({ blog }) {
         </p>
 
         <AuthorInfo
-          author={blog.author}
-          authorImage={blog.authorImage}
-          role={blog.authorRole}
+          author={DEFAULT_AUTHOR.name}
+          authorImage={DEFAULT_AUTHOR.image}
+          role={DEFAULT_AUTHOR.role}
           date={blog.publishedAt}
           readTime={blog.readTime}
-          size="lg"
         />
 
         <span className="inline-flex items-center gap-2 text-secondary font-semibold mt-1">

@@ -25,12 +25,10 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${montserrat.variable} ${dmSans.variable} ${plusJakartaSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-      {children}
-
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

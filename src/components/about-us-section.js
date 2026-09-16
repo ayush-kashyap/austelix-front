@@ -16,7 +16,7 @@ function AboutUsSection() {
                     height={330}
                     alt=''
                     aria-hidden='true'
-                    className='absolute -right-[3%] -bottom-[18%] w-[42%] max-w-[330px] h-auto opacity-[0.05] pointer-events-none'
+                    className='absolute right-[-3%] bottom-[-18%] w-[42%] max-w-[330px] h-auto opacity-[0.05] pointer-events-none'
                 />
 
                 <div className='relative z-[2] grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10'>

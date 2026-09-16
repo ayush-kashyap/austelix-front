@@ -22,7 +22,9 @@ function AuthorInfo({
         className="rounded-full border border-[#1A1A1A] object-cover"
       />
       <div className="leading-tight">
-        <div className={`font-semibold ${size === "lg" ? "text-base" : "text-sm"}`}>
+        <div
+          className={`font-semibold ${size === "lg" ? "text-base" : "text-sm"}`}
+        >
           {author}
         </div>
         <div className="text-zinc-500 text-xs flex items-center gap-1.5 flex-wrap">
