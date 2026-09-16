@@ -1,32 +1,35 @@
-import Image from "next/image";
-import Header from "./header";
+import WelcomeScreen from "../components/welcome-screen";
+import OurProcess from "../components/our-process";
+import Footer from "../components/footer";
+import Products from "../components/products";
+import DiscoverBuildImpact from "../components/discover-build-impact";
+import WhyWeExist from "../components/why-we-exist";
+import ByTheNumbers from "../components/by-the-numbers";
+import WhatGuidesUs from "../components/what-guides-us";
+import InsightsUpdates from "../components/insights-updates";
+import FinalCta from "../components/final-cta";
+import AboutUsSection from "@/components/about-us-section";
+
 
 export default function Home() {
   return (
-    <div
-    className="bg-main h-screen"
-    >
-<Header/>
+    <>
+    <WelcomeScreen/>
+    <Products/>
+    <OurProcess/>
+    <DiscoverBuildImpact/>
+    <WhyWeExist/>
+    <ByTheNumbers/>
+    <WhatGuidesUs/>
+    <InsightsUpdates/>
+    <FinalCta/>
+    <AboutUsSection/>
+    <Footer/>
+    </>
+    
+    
 
-<div 
-className="flex items-center justify-center md:justify-start h-[calc(100vh-100px)] md:px-16"
-// style={{
-//   height:"calc(100vh-100px)"
-// }}
->
-<span 
-className="md:text-8xl sm:text-7xl text-5xl text-center md:text-left font-bold font-Mon"
->
-  Coming 
-  <br/>
-  <span 
-  className="text-secondary"
-  >Soon</span>
-</span>
-</div>
-    </div>
-   
-    
-    
+
+
   );
 }
