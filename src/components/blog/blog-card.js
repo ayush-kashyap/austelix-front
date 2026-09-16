@@ -5,6 +5,11 @@ import CategoryBadge from "./category-badge";
 import AuthorInfo from "./author-info";
 
 function BlogCard({ blog }) {
+  const DEFAULT_AUTHOR = {
+    name: "Ayush Kashyap",
+    role: "Founder, CTO",
+    image: "/square-img.jpg",
+  };
   return (
     <Link
       href={`/blogs/${blog.slug}`}
@@ -19,7 +24,10 @@ function BlogCard({ blog }) {
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute top-3 left-3">
-          <CategoryBadge category={blog.category} className="backdrop-blur-sm" />
+          <CategoryBadge
+            category={blog.category}
+            className="backdrop-blur-sm"
+          />
         </div>
       </div>
 
@@ -32,10 +40,10 @@ function BlogCard({ blog }) {
         </p>
         <div className="pt-2 border-t border-[#1A1A1A]">
           <AuthorInfo
-            author={blog.author}
-            authorImage={blog.authorImage}
+            author={DEFAULT_AUTHOR.name}
+            authorImage={DEFAULT_AUTHOR.image}
+            role={DEFAULT_AUTHOR.role}
             date={blog.publishedAt}
-            readTime={blog.readTime}
           />
         </div>
       </div>

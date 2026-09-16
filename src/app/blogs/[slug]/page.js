@@ -1,4 +1,13 @@
 import React from "react";
+
+/** Extract h2 headings from raw HTML for the Table of Contents. */
+function extractHeadings(html) {
+  if (!html) return [];
+  const matches = [
+    ...html.matchAll(/<h2[^>]*id="([^"]+)"[^>]*>([^<]+)<\/h2>/gi),
+  ];
+  return matches.map(([, id, text]) => ({ id, text: text.trim() }));
+}
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -16,43 +25,56 @@ import PostNavigation from "@/components/blog/post-navigation";
 import NewsletterCTA from "@/components/blog/newsletter-cta";
 
 import {
-  getAllSlugs,
-  getBlogBySlug,
-  getRelatedBlogs,
-  getAdjacentBlogs,
-  getHeadings,
-} from "@/lib/blog";
-import { siteConfig } from "@/data/blogs";
+  fetchBlogBySlug,
+  fetchAllSlugs,
+  fetchRelatedBlogs,
+  fetchAdjacentBlogs,
+} from "@/lib/blog-api";
 
-export function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }));
+// ─── Hard data (not in DB schema) ────────────────────────────────────────────
+const SITE = {
+  url: "https://austelix.com",
+  name: "Austelix",
+  twitter: "@austelix",
+};
+
+// Author data is not stored in the blog schema.
+// All blogs default to the company author below.
+const DEFAULT_AUTHOR = {
+  name: "Ayush Kashyap",
+  role: "Founder, CTO",
+  image: "/square-img.jpg",
+};
+// ─────────────────────────────────────────────────────────────────────────────
+
+export async function generateStaticParams() {
+  const slugs = await fetchAllSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const blog = getBlogBySlug(slug);
+  const blog = await fetchBlogBySlug(slug);
 
-  if (!blog) {
-    return { title: "Article not found — Austelix" };
-  }
+  if (!blog) return { title: "Article not found — Austelix" };
 
-  const url = `${siteConfig.url}/blogs/${blog.slug}`;
-  const ogImage = `${siteConfig.url}${blog.coverImage}`;
+  const url = `${SITE.url}/blogs/${blog.slug}`;
+  const ogImage = blog.coverImage;
 
   return {
     title: `${blog.title} — Austelix`,
     description: blog.excerpt,
     keywords: blog.tags,
-    authors: [{ name: blog.author }],
+    authors: [{ name: DEFAULT_AUTHOR.name }],
     alternates: { canonical: url },
     openGraph: {
       type: "article",
       url,
       title: blog.title,
       description: blog.excerpt,
-      siteName: siteConfig.name,
+      siteName: SITE.name,
       publishedTime: blog.publishedAt,
-      authors: [blog.author],
+      authors: [DEFAULT_AUTHOR.name],
       tags: blog.tags,
       images: [{ url: ogImage, width: 1200, height: 630, alt: blog.title }],
     },
@@ -61,38 +83,37 @@ export async function generateMetadata({ params }) {
       title: blog.title,
       description: blog.excerpt,
       images: [ogImage],
-      creator: siteConfig.twitter,
+      creator: SITE.twitter,
     },
   };
 }
 
 export default async function BlogDetailPage({ params }) {
   const { slug } = await params;
-  const blog = getBlogBySlug(slug);
+
+  const [blog, related, { previous, next }] = await Promise.all([
+    fetchBlogBySlug(slug),
+    fetchRelatedBlogs(slug),
+    fetchAdjacentBlogs(slug),
+  ]);
 
   if (!blog) notFound();
 
-  const headings = getHeadings(blog.content);
-  const related = getRelatedBlogs(blog.slug);
-  const { previous, next } = getAdjacentBlogs(blog.slug);
-  const url = `${siteConfig.url}/blogs/${blog.slug}`;
+  const url = `${SITE.url}/blogs/${blog.slug}`;
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: blog.title,
     description: blog.excerpt,
-    image: `${siteConfig.url}${blog.coverImage}`,
+    image: blog.coverImage,
     datePublished: blog.publishedAt,
     dateModified: blog.publishedAt,
-    author: { "@type": "Person", name: blog.author },
+    author: { "@type": "Person", name: DEFAULT_AUTHOR.name },
     publisher: {
       "@type": "Organization",
-      name: siteConfig.name,
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteConfig.url}/logo-transparent.png`,
-      },
+      name: SITE.name,
+      logo: { "@type": "ImageObject", url: `${SITE.url}/logo-transparent.png` },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     keywords: (blog.tags || []).join(", "),
@@ -132,9 +153,9 @@ export default async function BlogDetailPage({ params }) {
 
           <div className="mt-7 flex flex-wrap items-center justify-between gap-4">
             <AuthorInfo
-              author={blog.author}
-              authorImage={blog.authorImage}
-              role={blog.authorRole}
+              author={DEFAULT_AUTHOR.name}
+              authorImage={DEFAULT_AUTHOR.image}
+              role={DEFAULT_AUTHOR.role}
               date={blog.publishedAt}
               size="lg"
             />
@@ -179,7 +200,7 @@ export default async function BlogDetailPage({ params }) {
 
           <aside className="hidden lg:block">
             <div className="sticky top-28">
-              <TableOfContents headings={headings} />
+              <TableOfContents headings={extractHeadings(blog.content)} />
             </div>
           </aside>
         </div>

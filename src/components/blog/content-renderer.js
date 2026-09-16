@@ -25,7 +25,13 @@ function BlogImage({ src, alt, caption }) {
   return (
     <figure className="my-10">
       <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-[#1A1A1A]">
-        <Image src={src} alt={alt || ""} fill sizes="(max-width: 768px) 100vw, 768px" className="object-cover" />
+        <Image
+          src={src}
+          alt={alt || ""}
+          fill
+          sizes="(max-width: 768px) 100vw, 768px"
+          className="object-cover"
+        />
       </div>
       {caption && (
         <figcaption className="text-center text-sm text-zinc-500 mt-3">
@@ -42,7 +48,11 @@ function Quote({ value, cite }) {
       <p className="md:text-xl text-lg font-medium leading-relaxed text-white">
         “{value}”
       </p>
-      {cite && <cite className="block not-italic text-sm text-secondary mt-3">— {cite}</cite>}
+      {cite && (
+        <cite className="block not-italic text-sm text-secondary mt-3">
+          — {cite}
+        </cite>
+      )}
     </blockquote>
   );
 }
@@ -76,7 +86,9 @@ function CodeBlock({ language, value }) {
   return (
     <div className="my-8 rounded-2xl border border-[#1A1A1A] bg-[#080808] overflow-hidden">
       <div className="flex items-center justify-between px-4 py-2 border-b border-[#1A1A1A]">
-        <span className="text-xs font-mono text-zinc-500">{language || "code"}</span>
+        <span className="text-xs font-mono text-zinc-500">
+          {language || "code"}
+        </span>
         <span className="flex gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-[#1f1f1f]" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#1f1f1f]" />
@@ -92,35 +104,10 @@ function CodeBlock({ language, value }) {
 
 function ContentRenderer({ content }) {
   return (
-    <div className="max-w-none">
-      {content.map((block, index) => {
-        switch (block.type) {
-          case "paragraph":
-            return <Paragraph key={index} value={block.value} />;
-          case "heading":
-            return <Heading key={index} value={block.value} />;
-          case "image":
-            return (
-              <BlogImage
-                key={index}
-                src={block.src}
-                alt={block.alt}
-                caption={block.caption}
-              />
-            );
-          case "quote":
-            return <Quote key={index} value={block.value} cite={block.cite} />;
-          case "list":
-            return <BlogList key={index} style={block.style} items={block.items} />;
-          case "code":
-            return (
-              <CodeBlock key={index} language={block.language} value={block.value} />
-            );
-          default:
-            return null;
-        }
-      })}
-    </div>
+    <div
+      className="max-w-none"
+      dangerouslySetInnerHTML={{ __html: content }}
+    ></div>
   );
 }
 

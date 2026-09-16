@@ -47,10 +47,44 @@ function ContactForm() {
       return;
     }
     setStatus("submitting");
-    // Wire this to your email provider or an API route, e.g. POST /api/contact.
-    await new Promise((resolve) => setTimeout(resolve, 600));
-    setStatus("success");
-    setValues(initialState);
+    try {
+      // The mail route lives in the CMS backend now, not in this app. This is
+      // a Client Component, so the base URL has to come from a NEXT_PUBLIC_ var.
+      const base = (process.env.NEXT_PUBLIC_backend_api || "").replace(/\/+$/, "");
+      const response = await fetch(`${base}/api/contact/send_mail`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          company: values.company,
+          subject: values.subject,
+          description: values.message,
+        }),
+      });
+
+      const resData = await response.json();
+
+      if (response.ok && resData.status) {
+        setStatus("success");
+        setValues(initialState);
+      } else {
+        setStatus("idle");
+        setErrors((prev) => ({
+          ...prev,
+          submit: resData.detail || "Failed to send message. Please try again.",
+        }));
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus("idle");
+      setErrors((prev) => ({
+        ...prev,
+        submit: "An unexpected error occurred. Please try again.",
+      }));
+    }
   };
 
   const inputBase =
@@ -66,7 +100,7 @@ function ContactForm() {
         </div>
         <h3 className="text-xl font-extrabold">Message sent</h3>
         <p className="text-zinc-400 text-sm max-w-xs">
-          Thanks for reaching out. We'll get back to you within one to two
+          Thanks for reaching out. We&apos;ll get back to you within one to two
           business days.
         </p>
         <button
@@ -84,7 +118,7 @@ function ContactForm() {
     <form onSubmit={handleSubmit} noValidate className="relative">
       <h2 className="text-2xl font-extrabold mb-1">Send us a message</h2>
       <p className="text-zinc-400 text-sm mb-7">
-        We'll get back to you within one to two business days.
+        We&apos;ll get back to you within one to two business days.
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -122,7 +156,8 @@ function ContactForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
         <div>
           <label className="block text-xs font-semibold text-zinc-300 mb-2">
-            Company <span className="text-zinc-600 font-normal">(optional)</span>
+            Company{" "}
+            <span className="text-zinc-600 font-normal">(optional)</span>
           </label>
           <input
             value={values.company}
@@ -133,7 +168,7 @@ function ContactForm() {
         </div>
         <div>
           <label className="block text-xs font-semibold text-zinc-300 mb-2">
-            I'm reaching out about
+            I&apos;m reaching out about
           </label>
           <select
             value={values.subject}
@@ -175,6 +210,9 @@ function ContactForm() {
         {status === "submitting" ? "Sending..." : "Send message"}
         <Send size={16} />
       </button>
+      {errors.submit && (
+        <p className="text-secondary text-xs mt-2">{errors.submit}</p>
+      )}
     </form>
   );
 }
